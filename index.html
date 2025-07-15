@@ -97,6 +97,19 @@
     <p>Bem-vindos ao nosso app do amor! 🌹</p>
   </header>
 
+<div id="telaLogin">
+  <h2>Login do Amor</h2>
+  <input type="text" id="loginNome" placeholder="Nome do casal">
+  <input type="password" id="loginSenha" placeholder="Senha">
+  <button class="btn" onclick="verificarLogin()">Entrar</button>
+  <button class="btn" onclick="salvarLogin()">Salvar Login</button>
+  <button class="btn" onclick="esqueceuSenha()">Esqueci a Senha</button>
+</div>
+
+<div id="conteudoApp" style="display:none;">
+  <!-- O app aparece aqui depois do login -->
+
+
   <div class="section">
     <h2>📅 Calendário do Amor</h2>
     <input type="date" id="eventoData">
@@ -186,6 +199,36 @@
       .then(() => console.log("✔️ Service Worker registrado com sucesso"))
       .catch((erro) => console.log("Erro ao registrar Service Worker:", erro));
   }
+function salvarLogin() {
+  const nome = document.getElementById('loginNome').value;
+  const senha = document.getElementById('loginSenha').value;
+  localStorage.setItem('loginNome', nome);
+  localStorage.setItem('loginSenha', senha);
+  alert('Login salvo com sucesso!');
+}
+
+function verificarLogin() {
+  const nome = document.getElementById('loginNome').value;
+  const senha = document.getElementById('loginSenha').value;
+  const nomeSalvo = localStorage.getItem('loginNome');
+  const senhaSalva = localStorage.getItem('loginSenha');
+  if (nome === nomeSalvo && senha === senhaSalva) {
+    document.getElementById('telaLogin').style.display = 'none';
+    document.getElementById('conteudoApp').style.display = 'block';
+  } else {
+    alert('Nome ou senha incorretos!');
+  }
+}
+
+function esqueceuSenha() {
+  const senhaSalva = localStorage.getItem('loginSenha');
+  if (senhaSalva) {
+    alert('Sua senha é: ' + senhaSalva);
+  } else {
+    alert('Nenhuma senha salva. Crie um login primeiro.');
+  }
+}
+
 </script>
   <script>
     function salvarTexto(id) {
